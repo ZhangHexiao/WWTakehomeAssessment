@@ -7,14 +7,18 @@
 
 import Foundation
 
-class RecipeService {
+protocol RecipeServiceProtocol {
+    func getPaginateRecipe(page: Int, completion: @escaping (Result<[Recipe], Error>) -> ())
+}
+
+class RecipeService: RecipeServiceProtocol{
     
-    let networkManager: NetworkManagerProtocol
+    private let networkManager: NetworkManagerProtocol
     init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
         self.networkManager = networkManager
     }
     
-    func getPaginateRecipe(page: Int, completion: @escaping (Result<[RecipeModel], Error>) -> ()) {
+    func getPaginateRecipe(page: Int, completion: @escaping (Result<[Recipe], Error>) -> ()) {
         let recipeListRequest = RecipeListRequest(page: page)
         NetworkManager.shared.executeRequest(apiRequest: recipeListRequest){ result in
             switch result {
@@ -23,7 +27,7 @@ class RecipeService {
                 let decoder = JSONDecoder()
                 decoder.userInfo[.context] = DecoderContext(itemsKey: "recipes")
                 do {
-                let pageWrapper = try decoder.decode(PageWrapper<RecipeModel>.self, from: response)
+                let pageWrapper = try decoder.decode(PageWrapper<Recipe>.self, from: response)
                     completion(.success(pageWrapper.items))
                 } catch {
                     completion(.failure(NetworkError.jsonSerializationError))

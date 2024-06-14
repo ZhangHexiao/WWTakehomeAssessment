@@ -13,11 +13,12 @@
 		BE2024BB2C1BE9E500F2E260 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2024BA2C1BE9E500F2E260 /* Error.swift */; };
 		BE2024BD2C1BF34E00F2E260 /* RecipeListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2024BC2C1BF34E00F2E260 /* RecipeListRequest.swift */; };
 		BE2024C32C1C822E00F2E260 /* PageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2024C22C1C822E00F2E260 /* PageWrapper.swift */; };
-		BE2024C52C1C873800F2E260 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2024C42C1C873800F2E260 /* RecipeModel.swift */; };
-		BE2024C82C1C8B4C00F2E260 /* GetPaginateRecipeListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2024C72C1C8B4B00F2E260 /* GetPaginateRecipeListService.swift */; };
+		BE2024C52C1C873800F2E260 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2024C42C1C873800F2E260 /* Recipe.swift */; };
+		BE2024C82C1C8B4C00F2E260 /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2024C72C1C8B4B00F2E260 /* RecipeService.swift */; };
+		BE2024CA2C1CCA6100F2E260 /* RecipeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2024C92C1CCA6100F2E260 /* RecipeViewCell.swift */; };
+		BE2024CC2C1CCCCD00F2E260 /* RecipeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2024CB2C1CCCCD00F2E260 /* RecipeListViewModel.swift */; };
 		BEFAB9AC2C1B92A900CF00B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFAB9AB2C1B92A900CF00B2 /* AppDelegate.swift */; };
 		BEFAB9AE2C1B92A900CF00B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFAB9AD2C1B92A900CF00B2 /* SceneDelegate.swift */; };
-		BEFAB9B32C1B92A900CF00B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEFAB9B12C1B92A900CF00B2 /* Main.storyboard */; };
 		BEFAB9B52C1B92AD00CF00B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEFAB9B42C1B92AD00CF00B2 /* Assets.xcassets */; };
 		BEFAB9B82C1B92AD00CF00B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEFAB9B62C1B92AD00CF00B2 /* LaunchScreen.storyboard */; };
 		BEFAB9C32C1B92AE00CF00B2 /* TheCulinaryCompanionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFAB9C22C1B92AE00CF00B2 /* TheCulinaryCompanionTests.swift */; };
@@ -49,12 +50,13 @@
 		BE2024BA2C1BE9E500F2E260 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		BE2024BC2C1BF34E00F2E260 /* RecipeListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListRequest.swift; sourceTree = "<group>"; };
 		BE2024C22C1C822E00F2E260 /* PageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageWrapper.swift; sourceTree = "<group>"; };
-		BE2024C42C1C873800F2E260 /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
-		BE2024C72C1C8B4B00F2E260 /* GetPaginateRecipeListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPaginateRecipeListService.swift; sourceTree = "<group>"; };
+		BE2024C42C1C873800F2E260 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		BE2024C72C1C8B4B00F2E260 /* RecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeService.swift; sourceTree = "<group>"; };
+		BE2024C92C1CCA6100F2E260 /* RecipeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewCell.swift; sourceTree = "<group>"; };
+		BE2024CB2C1CCCCD00F2E260 /* RecipeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListViewModel.swift; sourceTree = "<group>"; };
 		BEFAB9A82C1B92A900CF00B2 /* TheCulinaryCompanion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheCulinaryCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEFAB9AB2C1B92A900CF00B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEFAB9AD2C1B92A900CF00B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BEFAB9B22C1B92A900CF00B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BEFAB9B42C1B92AD00CF00B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BEFAB9B72C1B92AD00CF00B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BEFAB9B92C1B92AD00CF00B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -103,27 +105,47 @@
 			isa = PBXGroup;
 			children = (
 				BE2024C22C1C822E00F2E260 /* PageWrapper.swift */,
-				BE2024C42C1C873800F2E260 /* RecipeModel.swift */,
+				BE2024C42C1C873800F2E260 /* Recipe.swift */,
 				BE2024BC2C1BF34E00F2E260 /* RecipeListRequest.swift */,
 				BE2024BA2C1BE9E500F2E260 /* Error.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		BE2024BF2C1C7E5000F2E260 /* RecipeListView */ = {
+		BE2024BF2C1C7E5000F2E260 /* RecipeList */ = {
 			isa = PBXGroup;
 			children = (
 				BE2024B32C1B992F00F2E260 /* RecipeListViewController.swift */,
+				BE2024CB2C1CCCCD00F2E260 /* RecipeListViewModel.swift */,
+				BE2024C92C1CCA6100F2E260 /* RecipeViewCell.swift */,
 			);
-			path = RecipeListView;
+			path = RecipeList;
 			sourceTree = "<group>";
 		};
 		BE2024C62C1C8A6900F2E260 /* APIService */ = {
 			isa = PBXGroup;
 			children = (
-				BE2024C72C1C8B4B00F2E260 /* GetPaginateRecipeListService.swift */,
+				BE2024C72C1C8B4B00F2E260 /* RecipeService.swift */,
 			);
 			path = APIService;
+			sourceTree = "<group>";
+		};
+		BE2024CD2C1CD6EE00F2E260 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				BEFAB9AB2C1B92A900CF00B2 /* AppDelegate.swift */,
+				BEFAB9AD2C1B92A900CF00B2 /* SceneDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		BE2024CE2C1CD6FB00F2E260 /* Asset */ = {
+			isa = PBXGroup;
+			children = (
+				BEFAB9B42C1B92AD00CF00B2 /* Assets.xcassets */,
+				BEFAB9B62C1B92AD00CF00B2 /* LaunchScreen.storyboard */,
+			);
+			path = Asset;
 			sourceTree = "<group>";
 		};
 		BEFAB99F2C1B92A900CF00B2 = {
@@ -149,15 +171,12 @@
 		BEFAB9AA2C1B92A900CF00B2 /* TheCulinaryCompanion */ = {
 			isa = PBXGroup;
 			children = (
-				BEFAB9AB2C1B92A900CF00B2 /* AppDelegate.swift */,
-				BEFAB9AD2C1B92A900CF00B2 /* SceneDelegate.swift */,
-				BE2024BF2C1C7E5000F2E260 /* RecipeListView */,
+				BE2024CE2C1CD6FB00F2E260 /* Asset */,
+				BE2024CD2C1CD6EE00F2E260 /* Delegate */,
+				BE2024BF2C1C7E5000F2E260 /* RecipeList */,
 				BE2024BE2C1C7D4E00F2E260 /* Model */,
 				BE2024C62C1C8A6900F2E260 /* APIService */,
 				BE2024B72C1BD24100F2E260 /* Network */,
-				BEFAB9B12C1B92A900CF00B2 /* Main.storyboard */,
-				BEFAB9B42C1B92AD00CF00B2 /* Assets.xcassets */,
-				BEFAB9B62C1B92AD00CF00B2 /* LaunchScreen.storyboard */,
 				BEFAB9B92C1B92AD00CF00B2 /* Info.plist */,
 			);
 			path = TheCulinaryCompanion;
@@ -286,7 +305,6 @@
 			files = (
 				BEFAB9B82C1B92AD00CF00B2 /* LaunchScreen.storyboard in Resources */,
 				BEFAB9B52C1B92AD00CF00B2 /* Assets.xcassets in Resources */,
-				BEFAB9B32C1B92A900CF00B2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,14 +330,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE2024BB2C1BE9E500F2E260 /* Error.swift in Sources */,
-				BE2024C82C1C8B4C00F2E260 /* GetPaginateRecipeListService.swift in Sources */,
+				BE2024C82C1C8B4C00F2E260 /* RecipeService.swift in Sources */,
 				BE2024B42C1B992F00F2E260 /* RecipeListViewController.swift in Sources */,
 				BE2024B92C1BD27600F2E260 /* ApiRequestProtocol.swift in Sources */,
 				BE2024B62C1BD19700F2E260 /* NetworkManager.swift in Sources */,
 				BE2024BD2C1BF34E00F2E260 /* RecipeListRequest.swift in Sources */,
 				BEFAB9AC2C1B92A900CF00B2 /* AppDelegate.swift in Sources */,
-				BE2024C52C1C873800F2E260 /* RecipeModel.swift in Sources */,
+				BE2024C52C1C873800F2E260 /* Recipe.swift in Sources */,
+				BE2024CC2C1CCCCD00F2E260 /* RecipeListViewModel.swift in Sources */,
 				BE2024C32C1C822E00F2E260 /* PageWrapper.swift in Sources */,
+				BE2024CA2C1CCA6100F2E260 /* RecipeViewCell.swift in Sources */,
 				BEFAB9AE2C1B92A900CF00B2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,14 +377,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		BEFAB9B12C1B92A900CF00B2 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BEFAB9B22C1B92A900CF00B2 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BEFAB9B62C1B92AD00CF00B2 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
