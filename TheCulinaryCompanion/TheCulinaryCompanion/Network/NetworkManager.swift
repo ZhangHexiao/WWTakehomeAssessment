@@ -7,31 +7,23 @@
 
 import Foundation
 
-public enum HTTPMethod: String {
-    case get    = "GET"
-    case post   = "POST"
-    case put    = "PUT"
-    case patch  = "PATCH"
-    case delete = "DELETE"
+protocol NetworkManagerProtocol {
+    func executeRequest(apiRequest: APIRequest,
+                        completion: @escaping (Result<Data, Error>) -> ())
 }
 
-public class NetworkManager {
+public class NetworkManager: NetworkManagerProtocol{
     
     static let shared = NetworkManager()
-    private var baseUrl = ""
     private let session = URLSession(configuration: .default)
     
-    public func executeRequest(url: String,
-                               method: HTTPMethod,
-                               parameters: [String: String]? = nil,
-                               headers: [String: String]? = nil,
-                               completion: @escaping (Result<Any, Error>) -> ()) {
-        
-        var urlString = "\(baseUrl)\(url)"
+    public func executeRequest(apiRequest: APIRequest,
+                               completion: @escaping (Result<Data, Error>) -> ()) {
         
         var jsonData: Data?
-        if let parameters = parameters {
-            switch method {
+        var urlString: String = apiRequest.url
+        if let parameters = apiRequest.parameters {
+            switch apiRequest.method {
             case .get where !parameters.isEmpty:
                 urlString = urlString + "?" + query(parameters)
             case .post, .put, .patch, .delete:
@@ -46,9 +38,9 @@ public class NetworkManager {
         }
         
         var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
+        request.httpMethod = apiRequest.method.rawValue
         
-        if let httpHeaders = headers {
+        if let httpHeaders = apiRequest.headers {
             for (key, value) in httpHeaders {
                 request.setValue(value, forHTTPHeaderField: key)
             }
@@ -60,8 +52,9 @@ public class NetworkManager {
         task.resume()
     }
     
-    private func requestCompletionHandler(_ data: Data?, _ response: URLResponse?, _ error: Error?, completion: @escaping (Result<Any, Error>) -> ()) {
-        if let err = error {
+    private func requestCompletionHandler(_ data: Data?, _ response: URLResponse?, _ error: Error?, completion: @escaping (Result<Data, Error>) -> ()) {
+        
+        if error != nil {
             completion(.failure(NetworkError.errorFromResponse))
             return
         }
@@ -72,12 +65,7 @@ public class NetworkManager {
         }
         
         if let validData = data {
-            do {
-                let responseObject = try JSONSerialization.jsonObject(with: validData, options: .mutableContainers)
-                completion(.success(responseObject))
-            } catch {
-                completion(.failure(NetworkError.jsonSerializationError))
-            }
+                completion(.success(validData))
         } else {
             completion(.failure(NetworkError.invalidData))
         }

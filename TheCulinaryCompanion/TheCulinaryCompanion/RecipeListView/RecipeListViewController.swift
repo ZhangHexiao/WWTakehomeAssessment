@@ -12,6 +12,9 @@ class RecipeListViewController:  UIViewController{
     
     override func viewDidLoad() {
         print("nihao")
+        RecipeService(networkManager: NetworkManager()).getPaginateRecipe(page: 1){result in
+            print(result)
+        }
     }
     
 }
