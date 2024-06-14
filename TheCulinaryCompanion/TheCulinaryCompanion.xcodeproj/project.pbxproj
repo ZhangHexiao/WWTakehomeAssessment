@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE2024B42C1B992F00F2E260 /* RecipeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2024B32C1B992F00F2E260 /* RecipeListViewController.swift */; };
+		BE2024B62C1BD19700F2E260 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2024B52C1BD19700F2E260 /* NetworkManager.swift */; };
+		BE2024B92C1BD27600F2E260 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2024B82C1BD27600F2E260 /* ApiRequest.swift */; };
+		BE2024BB2C1BE9E500F2E260 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2024BA2C1BE9E500F2E260 /* NetworkError.swift */; };
 		BEFAB9AC2C1B92A900CF00B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFAB9AB2C1B92A900CF00B2 /* AppDelegate.swift */; };
 		BEFAB9AE2C1B92A900CF00B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFAB9AD2C1B92A900CF00B2 /* SceneDelegate.swift */; };
 		BEFAB9B02C1B92A900CF00B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFAB9AF2C1B92A900CF00B2 /* ViewController.swift */; };
@@ -36,6 +40,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BE2024B32C1B992F00F2E260 /* RecipeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListViewController.swift; sourceTree = "<group>"; };
+		BE2024B52C1BD19700F2E260 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		BE2024B82C1BD27600F2E260 /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
+		BE2024BA2C1BE9E500F2E260 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		BEFAB9A82C1B92A900CF00B2 /* TheCulinaryCompanion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheCulinaryCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEFAB9AB2C1B92A900CF00B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEFAB9AD2C1B92A900CF00B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +84,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE2024B72C1BD24100F2E260 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				BE2024B52C1BD19700F2E260 /* NetworkManager.swift */,
+				BE2024BA2C1BE9E500F2E260 /* NetworkError.swift */,
+				BE2024B82C1BD27600F2E260 /* ApiRequest.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
 		BEFAB99F2C1B92A900CF00B2 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +120,8 @@
 				BEFAB9AB2C1B92A900CF00B2 /* AppDelegate.swift */,
 				BEFAB9AD2C1B92A900CF00B2 /* SceneDelegate.swift */,
 				BEFAB9AF2C1B92A900CF00B2 /* ViewController.swift */,
+				BE2024B72C1BD24100F2E260 /* NetworkService */,
+				BE2024B32C1B992F00F2E260 /* RecipeListViewController.swift */,
 				BEFAB9B12C1B92A900CF00B2 /* Main.storyboard */,
 				BEFAB9B42C1B92AD00CF00B2 /* Assets.xcassets */,
 				BEFAB9B62C1B92AD00CF00B2 /* LaunchScreen.storyboard */,
@@ -259,6 +279,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEFAB9B02C1B92A900CF00B2 /* ViewController.swift in Sources */,
+				BE2024BB2C1BE9E500F2E260 /* NetworkError.swift in Sources */,
+				BE2024B42C1B992F00F2E260 /* RecipeListViewController.swift in Sources */,
+				BE2024B92C1BD27600F2E260 /* ApiRequest.swift in Sources */,
+				BE2024B62C1BD19700F2E260 /* NetworkManager.swift in Sources */,
 				BEFAB9AC2C1B92A900CF00B2 /* AppDelegate.swift in Sources */,
 				BEFAB9AE2C1B92A900CF00B2 /* SceneDelegate.swift in Sources */,
 			);
