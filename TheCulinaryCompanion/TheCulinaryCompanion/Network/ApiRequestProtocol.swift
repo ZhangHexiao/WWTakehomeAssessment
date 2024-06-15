@@ -22,7 +22,6 @@ public protocol APIRequest {
 }
 
 extension APIRequest {
-    //default is internal url
     var baseURL: String  {
         return "https://api.qa.ww.com/v1/guidance/interview/recipe"
     }

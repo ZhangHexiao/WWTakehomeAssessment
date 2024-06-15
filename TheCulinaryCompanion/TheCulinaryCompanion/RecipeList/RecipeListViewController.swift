@@ -25,7 +25,7 @@ class RecipeListViewController:  UIViewController{
     var viewModel: RecipeListViewModel = RecipeListViewModel(recipeService: RecipeService())
     
     override func viewDidLoad() {
-        view.backgroundColor = .white
+        view.backgroundColor = .secondarySystemBackground
         setUpTitle()
         setUpTableView()
         viewModel.delegate = self
@@ -34,11 +34,10 @@ class RecipeListViewController:  UIViewController{
     
     func setUpTitle(){
         navigationItem.title = "The Culinary Companion"
-        navigationItem.largeTitleDisplayMode = .always
         if let navigationBar = navigationController?.navigationBar {
             navigationBar.barTintColor = .white
-             navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-         }
+            navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        }
         
     }
     
@@ -53,6 +52,7 @@ class RecipeListViewController:  UIViewController{
         tableView.dataSource = self
         tableView.delegate = self
         spinner.hidesWhenStopped = true
+        tableView.separatorStyle = .none
         tableView.tableFooterView = spinner
     }
     
@@ -77,12 +77,12 @@ extension RecipeListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 120
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecipeViewCell.identifier, for: indexPath) as? RecipeViewCell ?? RecipeViewCell()
-        cell.configCell(recipe: viewModel.recipeList[indexPath.row])
+        cell.configCell(recipt: viewModel.recipeList[indexPath.row])
         return cell
     }
     
