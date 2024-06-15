@@ -25,14 +25,28 @@ class RecipeListViewController:  UIViewController{
     var viewModel: RecipeListViewModel = RecipeListViewModel(recipeService: RecipeService())
     
     override func viewDidLoad() {
+        view.backgroundColor = .white
+        setUpTitle()
+        setUpTableView()
+        viewModel.delegate = self
         viewModel.fetchData()
+    }
+    
+    func setUpTitle(){
+        navigationItem.title = "The Culinary Companion"
+        navigationItem.largeTitleDisplayMode = .always
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.barTintColor = .white
+             navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+         }
+        
     }
     
     func setUpTableView(){
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
         ])

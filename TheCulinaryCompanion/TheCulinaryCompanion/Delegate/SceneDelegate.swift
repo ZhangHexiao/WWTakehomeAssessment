@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         fatalError("Could not cast scene to UIWindowScene.")
       }
       let window = UIWindow(windowScene: windowScene)
-      window.rootViewController = RecipeListViewController()
+      window.rootViewController =  UINavigationController(rootViewController: RecipeListViewController())
       window.tintColor = .systemPurple
       self.window = window
       window.makeKeyAndVisible()

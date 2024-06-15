@@ -34,6 +34,7 @@ class RecipeListViewModel {
         currentPage += 1
         recipeService.getPaginateRecipe(page: currentPage){
             result in
+            print(result)
             switch result{
             case .success(let result):
                 self.recipeList += result
