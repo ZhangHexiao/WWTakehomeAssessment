@@ -15,11 +15,11 @@ class RecipeViewCell: UITableViewCell {
     private(set) var cardView: UIView = {
         let cardView = UIView()
         cardView.backgroundColor = .white
-        cardView.layer.cornerRadius = 10
+        cardView.layer.cornerRadius = LayoutDimension.cellCornerRadius
         cardView.layer.shadowColor = UIColor.black.cgColor
         cardView.layer.shadowOpacity = 0.1
-        cardView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        cardView.layer.shadowRadius = 4
+        cardView.layer.shadowOffset = CGSize(width: LayoutDimension.cellShadowOffsetWidth, height: LayoutDimension.cellShadowOffsetHeight)
+        cardView.layer.shadowRadius = LayoutDimension.cellShadowRadiusRadius
         return cardView
     }()
     
@@ -28,7 +28,7 @@ class RecipeViewCell: UITableViewCell {
         let foodImageView = UIImageView()
         foodImageView.contentMode = .scaleAspectFill
         foodImageView.clipsToBounds = true
-        foodImageView.layer.cornerRadius = 10
+        foodImageView.layer.cornerRadius = LayoutDimension.cellCornerRadius
         foodImageView.layer.masksToBounds = true
         foodImageView.backgroundColor = .clear
         return foodImageView
@@ -95,9 +95,6 @@ class RecipeViewCell: UITableViewCell {
         return activityIndicator
     }()
     
-    let padding: CGFloat = 16
-    let minorPadding: CGFloat = 8
-    
     var foodImageUrl = ""
     var retryDownlaodImageAction: (() -> Void)?
     
@@ -129,40 +126,41 @@ class RecipeViewCell: UITableViewCell {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             
-            levelLabel.topAnchor.constraint(equalTo: cardView.topAnchor, constant: minorPadding),
-            levelLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -padding),
-            levelLabel.widthAnchor.constraint(equalToConstant: 50),
+            cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutDimension.cellVerticalMargin),
+            cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutDimension.cellVerticalMargin),
+            cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutDimension.cellHorizontalMargin),
+            cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutDimension.cellHorizontalMargin),
+            
+            levelLabel.topAnchor.constraint(equalTo: cardView.topAnchor, constant: LayoutDimension.minorPadding),
+            levelLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -LayoutDimension.padding),
+            levelLabel.widthAnchor.constraint(equalToConstant: LayoutDimension.levelLabelWidth),
             
             foodImageView.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 0),
             foodImageView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: 0),
             foodImageView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 0),
-            foodImageView.widthAnchor.constraint(equalToConstant: 104),
+            foodImageView.widthAnchor.constraint(equalToConstant: LayoutDimension.foodImageSize),
             
-            titleLabel.topAnchor.constraint(equalTo: cardView.topAnchor,constant: minorPadding),
-            titleLabel.leadingAnchor.constraint(equalTo: foodImageView.trailingAnchor, constant: padding),
-            titleLabel.trailingAnchor.constraint(equalTo: levelLabel.leadingAnchor, constant: -padding),
+            titleLabel.topAnchor.constraint(equalTo: cardView.topAnchor,constant: LayoutDimension.minorPadding),
+            titleLabel.leadingAnchor.constraint(equalTo: foodImageView.trailingAnchor, constant: LayoutDimension.padding),
+            titleLabel.trailingAnchor.constraint(equalTo: levelLabel.leadingAnchor, constant: -LayoutDimension.padding),
             
-            timeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            timeLabel.leadingAnchor.constraint(equalTo: foodImageView.trailingAnchor, constant: padding),
-            timeLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -padding),
+            timeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: LayoutDimension.cellLabelGap),
+            timeLabel.leadingAnchor.constraint(equalTo: foodImageView.trailingAnchor, constant: LayoutDimension.padding),
+            timeLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -LayoutDimension.padding),
             
-            pointLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 4),
-            pointLabel.leadingAnchor.constraint(equalTo: foodImageView.trailingAnchor, constant: padding),
-            pointLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -padding),
-            pointLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -padding),
+            pointLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: LayoutDimension.cellLabelGap),
+            pointLabel.leadingAnchor.constraint(equalTo: foodImageView.trailingAnchor, constant: LayoutDimension.padding),
+            pointLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -LayoutDimension.padding),
+            pointLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -LayoutDimension.padding),
             
             activityIndicator.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 0),
             activityIndicator.topAnchor.constraint(equalTo: cardView.topAnchor),
-            activityIndicator.widthAnchor.constraint(equalToConstant: 104),
-            activityIndicator.heightAnchor.constraint(equalToConstant: 104),
+            activityIndicator.widthAnchor.constraint(equalToConstant: LayoutDimension.foodImageSize),
+            activityIndicator.heightAnchor.constraint(equalToConstant: LayoutDimension.foodImageSize),
             
-            retryButton.widthAnchor.constraint(equalToConstant: 100),
-            retryButton.heightAnchor.constraint(equalToConstant: 30),
+            retryButton.widthAnchor.constraint(equalToConstant: LayoutDimension.imageRetryButtonWidth),
+            retryButton.heightAnchor.constraint(equalToConstant: LayoutDimension.imageRetryButtonHeight),
             retryButton.centerXAnchor.constraint(equalTo: foodImageView.centerXAnchor),
             retryButton.centerYAnchor.constraint(equalTo: foodImageView.centerYAnchor)
         ])
@@ -193,6 +191,5 @@ class RecipeViewCell: UITableViewCell {
             self.retryDownlaodImageAction = retryAction
             self.retryButton.addTarget(self, action: #selector(self.retryButtonTapped), for: .touchUpInside)
         }
-        
     }
 }

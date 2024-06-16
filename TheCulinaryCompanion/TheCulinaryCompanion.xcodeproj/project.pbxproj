@@ -20,6 +20,7 @@
 		BE4F15C22C1DD10B000F86B5 /* UsesAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F15C12C1DD10B000F86B5 /* UsesAutoLayout.swift */; };
 		BE4F15C42C1E2B0F000F86B5 /* ImageCacheLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F15C32C1E2B0F000F86B5 /* ImageCacheLoader.swift */; };
 		BE4F15C62C1E86CE000F86B5 /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F15C52C1E86CE000F86B5 /* ErrorAlert.swift */; };
+		BE4F15C82C1F4407000F86B5 /* LayoutDimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F15C72C1F4407000F86B5 /* LayoutDimension.swift */; };
 		BEFAB9AC2C1B92A900CF00B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFAB9AB2C1B92A900CF00B2 /* AppDelegate.swift */; };
 		BEFAB9AE2C1B92A900CF00B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFAB9AD2C1B92A900CF00B2 /* SceneDelegate.swift */; };
 		BEFAB9B52C1B92AD00CF00B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEFAB9B42C1B92AD00CF00B2 /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 		BE4F15C12C1DD10B000F86B5 /* UsesAutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsesAutoLayout.swift; sourceTree = "<group>"; };
 		BE4F15C32C1E2B0F000F86B5 /* ImageCacheLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheLoader.swift; sourceTree = "<group>"; };
 		BE4F15C52C1E86CE000F86B5 /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
+		BE4F15C72C1F4407000F86B5 /* LayoutDimension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutDimension.swift; sourceTree = "<group>"; };
 		BEFAB9A82C1B92A900CF00B2 /* TheCulinaryCompanion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheCulinaryCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEFAB9AB2C1B92A900CF00B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEFAB9AD2C1B92A900CF00B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			children = (
 				BE4F15C52C1E86CE000F86B5 /* ErrorAlert.swift */,
 				BE4F15C12C1DD10B000F86B5 /* UsesAutoLayout.swift */,
+				BE4F15C72C1F4407000F86B5 /* LayoutDimension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				BE4F15C62C1E86CE000F86B5 /* ErrorAlert.swift in Sources */,
 				BE2024C82C1C8B4C00F2E260 /* RecipeService.swift in Sources */,
 				BE2024B42C1B992F00F2E260 /* RecipeListViewController.swift in Sources */,
+				BE4F15C82C1F4407000F86B5 /* LayoutDimension.swift in Sources */,
 				BE2024B92C1BD27600F2E260 /* ApiRequestProtocol.swift in Sources */,
 				BE4F15C22C1DD10B000F86B5 /* UsesAutoLayout.swift in Sources */,
 				BE4F15C42C1E2B0F000F86B5 /* ImageCacheLoader.swift in Sources */,

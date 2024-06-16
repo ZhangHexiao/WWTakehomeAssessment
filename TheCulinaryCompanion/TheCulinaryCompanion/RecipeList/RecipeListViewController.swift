@@ -17,24 +17,8 @@ class RecipeListViewController:  UIViewController {
         return tableView
     }()
     
-    @UsesAutoLayout
-    private(set) var spinner: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .medium)
-        return indicator
-    }()
-    
-    @UsesAutoLayout
-    private(set) var noDataLabel: UILabel = {
-        let noDataLabel = UILabel()
-        noDataLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        noDataLabel.text = "All data loaded"
-        noDataLabel.textAlignment = .center
-        noDataLabel.adjustsFontSizeToFitWidth = true
-        noDataLabel.minimumScaleFactor = 0.5
-        noDataLabel.numberOfLines = 1
-        return noDataLabel
-        
-    }()
+    let spinner: UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
+    let noDataLabel: UILabel = UILabel()
     
     var viewModel: RecipeListViewModel = RecipeListViewModel(recipeService: RecipeService())
     
@@ -66,8 +50,12 @@ class RecipeListViewController:  UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-        tableView.tableFooterView = viewModel.currentPage >= 5 ? noDataLabel : spinner
-        spinner.hidesWhenStopped = true
+        
+        noDataLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        noDataLabel.text = "All data loaded"
+        noDataLabel.textAlignment = .center
+        
+        tableView.tableFooterView = spinner
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -76,10 +64,9 @@ class RecipeListViewController:  UIViewController {
         let height = scrollView.frame.size.height
         
         if offsetY > contentHeight - height {
-            if(viewModel.isLoading){
+            if viewModel.currentPage < 5 {
                 spinner.startAnimating()
-            }else{
-                viewModel.fetchData()
+                self.viewModel.fetchData()
             }
         }
     }
@@ -92,7 +79,7 @@ extension RecipeListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return LayoutDimension.cellHeight
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -100,7 +87,7 @@ extension RecipeListViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.configCell(recipt: viewModel.recipeList[indexPath.row])
         if let imageURL = viewModel.recipeList[indexPath.row].smallImage?.url {
-            viewModel.loadImageForCell(imageURL: imageURL, cell: cell)            
+            viewModel.loadImageForCell(imageURL: imageURL, cell: cell)
         }
         return cell
     }

@@ -19,14 +19,13 @@ class RecipeListViewModel {
     var currentPage: Int = 1
     var isLoading = false
     private var recipeService: RecipeServiceProtocol
-    
     weak var delegate: RecipeListViewModelDelegate?
     init(recipeService: RecipeServiceProtocol) {
         self.recipeService = recipeService
     }
     
     func fetchData() {
-        if (currentPage >= 5) {
+        if (isLoading == true) {
             return
         }
         isLoading = true
