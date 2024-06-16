@@ -2,14 +2,14 @@
 //  NetworkManager.swift
 //  TheCulinaryCompanion
 //
-//  Created by Rodney Zhang on 2024-06-13.
+//  Created by Rodney Zhang on 2024-06-15.
 //
 
 import Foundation
 
 protocol NetworkManagerProtocol {
     func executeRequest(apiRequest: APIRequest,
-                        completion: @escaping (Result<Data, Error>) -> ())
+                        completion: @escaping (Result<Data, NetworkError>) -> ())
 }
 
 public class NetworkManager: NetworkManagerProtocol{
@@ -18,7 +18,7 @@ public class NetworkManager: NetworkManagerProtocol{
     private let session = URLSession(configuration: .default)
     
     public func executeRequest(apiRequest: APIRequest,
-                               completion: @escaping (Result<Data, Error>) -> ()) {
+                               completion: @escaping (Result<Data, NetworkError>) -> ()) {
         
         var jsonData: Data?
         var urlString: String = apiRequest.url
@@ -33,8 +33,7 @@ public class NetworkManager: NetworkManagerProtocol{
         }
         
         guard let url = URL(string: urlString) else {
-            let error = URLError(URLError.unsupportedURL)
-            return completion(.failure(error))
+            return completion(.failure(NetworkError.urlParseError))
         }
         
         var request = URLRequest(url: url)
@@ -52,7 +51,7 @@ public class NetworkManager: NetworkManagerProtocol{
         task.resume()
     }
     
-    private func requestCompletionHandler(_ data: Data?, _ response: URLResponse?, _ error: Error?, completion: @escaping (Result<Data, Error>) -> ()) {
+    private func requestCompletionHandler(_ data: Data?, _ response: URLResponse?, _ error: Error?, completion: @escaping (Result<Data, NetworkError>) -> ()) {
         
         if error != nil {
             completion(.failure(NetworkError.errorFromResponse))

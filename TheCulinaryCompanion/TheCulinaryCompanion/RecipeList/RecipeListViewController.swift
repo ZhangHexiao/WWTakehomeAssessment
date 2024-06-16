@@ -2,13 +2,13 @@
 //  RecipeListScreen.swift
 //  TheCulinaryCompanion
 //
-//  Created by Rodney Zhang on 2024-06-13.
+//  Created by Rodney Zhang on 2024-06-15.
 //
 
 import Foundation
 import UIKit
 
-class RecipeListViewController:  UIViewController{
+class RecipeListViewController:  UIViewController {
     
     private var tableView: UITableView = {
         let tableView = UITableView()
@@ -38,7 +38,6 @@ class RecipeListViewController:  UIViewController{
             navigationBar.barTintColor = .white
             navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         }
-        
     }
     
     func setUpTableView(){
@@ -53,7 +52,8 @@ class RecipeListViewController:  UIViewController{
         tableView.delegate = self
         spinner.hidesWhenStopped = true
         tableView.separatorStyle = .none
-        tableView.tableFooterView = spinner
+        tableView.allowsSelection = false
+        tableView.tableFooterView = viewModel.currentPage >= 5 ? nil: spinner
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -64,8 +64,9 @@ class RecipeListViewController:  UIViewController{
         if offsetY > contentHeight - height {
             if(viewModel.isLoading){
                 spinner.startAnimating()
+            }else{
+                viewModel.fetchData()
             }
-            viewModel.fetchData()
         }
     }
 }
@@ -82,10 +83,13 @@ extension RecipeListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecipeViewCell.identifier, for: indexPath) as? RecipeViewCell ?? RecipeViewCell()
+        
         cell.configCell(recipt: viewModel.recipeList[indexPath.row])
+        if let imageURL = viewModel.recipeList[indexPath.row].smallImage?.url {
+            viewModel.loadImageForCell(imageURL: imageURL, cell: cell)            
+        }
         return cell
     }
-    
 }
 
 extension RecipeListViewController: RecipeListViewModelDelegate{
@@ -94,6 +98,6 @@ extension RecipeListViewController: RecipeListViewModelDelegate{
             self.tableView.reloadData()
             self.spinner.stopAnimating()
         }
-        print("data reloaded")
     }
 }
+

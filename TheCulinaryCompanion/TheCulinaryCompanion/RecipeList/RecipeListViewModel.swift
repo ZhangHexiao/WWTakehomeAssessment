@@ -2,10 +2,11 @@
 //  RecipeListViewModel.swift
 //  TheCulinaryCompanion
 //
-//  Created by Rodney Zhang on 2024-06-14.
+//  Created by Rodney Zhang on 2024-06-15.
 //
 
 import Foundation
+import UIKit
 
 protocol RecipeListViewModelDelegate: AnyObject {
     func viewReload()
@@ -15,34 +16,48 @@ protocol RecipeListViewModelDelegate: AnyObject {
 class RecipeListViewModel {
     
     var recipeList:[Recipe] = []
-    private var recipeService: RecipeServiceProtocol
-    private var currentPage: Int = 0
-    
+    var currentPage: Int = 1
     var isLoading = false
+    private var recipeService: RecipeServiceProtocol
     
     weak var delegate: RecipeListViewModelDelegate?
-    
     init(recipeService: RecipeServiceProtocol) {
         self.recipeService = recipeService
     }
     
     func fetchData() {
-        if isLoading {
+        if (currentPage >= 5) {
             return
         }
         isLoading = true
         currentPage += 1
         recipeService.getPaginateRecipe(page: currentPage){
             result in
-            print(result)
             switch result{
             case .success(let result):
                 self.recipeList += result
                 self.delegate?.viewReload()
                 self.isLoading = false
             case .failure(let error):
-                self.isLoading = false
                 print(error)
+                DispatchQueue.main.async {
+                    ErrorAlertController.presentErrorAlert(on: self.delegate as! UIViewController, message: error.errorDescription ?? "Some error happened", retryHandler: {self.fetchData()})
+                    self.isLoading = false
+                    self.delegate?.viewReload()
+                }
+            }
+        }
+    }
+    
+    func loadImageForCell(imageURL: String, cell: RecipeViewCell) {
+        ImageCacheLoader.requestImage(imageUrl: imageURL){result in
+            switch result {
+            case .success(let image):
+                if (cell.foodImageUrl == imageURL){
+                    cell.setImage(image)
+                }
+            case .failure(_):
+                cell.setRetryDownloadImage(retryAction: {self.loadImageForCell(imageURL: imageURL, cell: cell)})
             }
         }
     }

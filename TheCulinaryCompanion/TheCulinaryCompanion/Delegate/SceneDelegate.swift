@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  TheCulinaryCompanion
 //
-//  Created by Rodney Zhang on 2024-06-13.
+//  Created by Rodney Zhang on 2024-06-15.
 //
 
 import UIKit

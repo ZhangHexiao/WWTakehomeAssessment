@@ -2,7 +2,7 @@
 //  RecipeViewCell.swift
 //  TheCulinaryCompanion
 //
-//  Created by Rodney Zhang on 2024-06-14.
+//  Created by Rodney Zhang on 2024-06-15.
 //
 
 import UIKit
@@ -16,20 +16,35 @@ class RecipeViewCell: UITableViewCell {
     let timeLabel = UILabel()
     let levelLabel = UILabel()
     let pointLabel = UILabel()
+    let retryButton = UIButton(type: .system)
+    
+    let activityIndicator = UIActivityIndicatorView(style: .large)
     
     let padding: CGFloat = 16
     let minorPadding: CGFloat = 8
-
+    
+    var foodImageUrl = ""
+    var retryDownlaodImage: (() -> Void)?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
         setupLayout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    override func prepareForReuse() {
+        activityIndicator.startAnimating()
+        retryButton.isHidden = true
+    }
+    
+    @objc private func retryButtonTapped() {
+        retryDownlaodImage?()
+    }
+    
     private func setupUI() {
         cardView.backgroundColor = .white
         cardView.layer.cornerRadius = 10
@@ -43,7 +58,7 @@ class RecipeViewCell: UITableViewCell {
         foodImageView.clipsToBounds = true
         foodImageView.layer.cornerRadius = 10
         foodImageView.layer.masksToBounds = true
-        foodImageView.backgroundColor = .yellow
+        foodImageView.backgroundColor = .clear
         cardView.addSubview(foodImageView)
         
         titleLabel.font = UIFont.boldSystemFont(ofSize: 14)
@@ -69,8 +84,18 @@ class RecipeViewCell: UITableViewCell {
         pointLabel.textColor = .gray
         pointLabel.numberOfLines = 1
         cardView.addSubview(pointLabel)
+        
+        activityIndicator.hidesWhenStopped = true
+        cardView.addSubview(activityIndicator)
+        
+        retryButton.setTitle("Click to reload image", for: .normal)
+        retryButton.layer.borderColor = UIColor.black.cgColor
+        retryButton.isHidden = true 
+        retryButton.titleLabel?.font = .systemFont(ofSize: 12)
+        retryButton.titleLabel?.numberOfLines = 2
+        cardView.addSubview(retryButton)
     }
-
+    
     private func setupLayout() {
         cardView.translatesAutoresizingMaskIntoConstraints = false
         foodImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,6 +103,8 @@ class RecipeViewCell: UITableViewCell {
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         levelLabel.translatesAutoresizingMaskIntoConstraints = false
         pointLabel.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        retryButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
@@ -92,12 +119,12 @@ class RecipeViewCell: UITableViewCell {
             foodImageView.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 0),
             foodImageView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: 0),
             foodImageView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 0),
-            foodImageView.widthAnchor.constraint(equalToConstant: 120),
-
+            foodImageView.widthAnchor.constraint(equalToConstant: 104),
+            
             titleLabel.topAnchor.constraint(equalTo: cardView.topAnchor,constant: minorPadding),
             titleLabel.leadingAnchor.constraint(equalTo: foodImageView.trailingAnchor, constant: padding),
             titleLabel.trailingAnchor.constraint(equalTo: levelLabel.leadingAnchor, constant: -padding),
-
+            
             timeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             timeLabel.leadingAnchor.constraint(equalTo: foodImageView.trailingAnchor, constant: padding),
             timeLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -padding),
@@ -105,7 +132,18 @@ class RecipeViewCell: UITableViewCell {
             pointLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 4),
             pointLabel.leadingAnchor.constraint(equalTo: foodImageView.trailingAnchor, constant: padding),
             pointLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -padding),
-            pointLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -padding)
+            pointLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -padding),
+            
+            activityIndicator.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 0),
+            activityIndicator.topAnchor.constraint(equalTo: cardView.topAnchor),
+            activityIndicator.widthAnchor.constraint(equalToConstant: 104),
+            activityIndicator.heightAnchor.constraint(equalToConstant: 104),
+            
+            retryButton.widthAnchor.constraint(equalToConstant: 100),
+            retryButton.heightAnchor.constraint(equalToConstant: 30),
+            retryButton.centerXAnchor.constraint(equalTo: foodImageView.centerXAnchor),
+            retryButton.centerYAnchor.constraint(equalTo: foodImageView.centerYAnchor)
+  
         ])
     }
     
@@ -115,5 +153,25 @@ class RecipeViewCell: UITableViewCell {
         levelLabel.text = recipt.difficultyLevel.rawValue
         timeLabel.text = "Preparation Time: \(recipt.preparationTime) min"
         pointLabel.text = "Point: \(recipt.points)"
+        foodImageUrl = recipt.smallImage?.url ?? ""
+        activityIndicator.startAnimating()
+    }
+    
+    func setImage(_ image: UIImage) {
+        DispatchQueue.main.async {
+            self.retryButton.isHidden = true
+            self.activityIndicator.stopAnimating()
+            self.foodImageView.image = image
+        }
+    }
+    
+    func setRetryDownloadImage(retryAction: @escaping (()->Void)) {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.retryButton.isHidden = false
+            self.retryDownlaodImage = retryAction
+            self.retryButton.addTarget(self, action: #selector(self.retryButtonTapped), for: .touchUpInside)
+        }
+        
     }
 }

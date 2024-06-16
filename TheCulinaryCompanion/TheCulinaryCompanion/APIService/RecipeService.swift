@@ -2,13 +2,13 @@
 //  GetPaginateRecipeListService.swift
 //  TheCulinaryCompanion
 //
-//  Created by Rodney Zhang on 2024-06-14.
+//  Created by Rodney Zhang on 2024-06-15.
 //
 
 import Foundation
 
 protocol RecipeServiceProtocol {
-    func getPaginateRecipe(page: Int, completion: @escaping (Result<[Recipe], Error>) -> ())
+    func getPaginateRecipe(page: Int, completion: @escaping (Result<[Recipe], NetworkError>) -> ())
 }
 
 class RecipeService: RecipeServiceProtocol{
@@ -18,12 +18,11 @@ class RecipeService: RecipeServiceProtocol{
         self.networkManager = networkManager
     }
     
-    func getPaginateRecipe(page: Int, completion: @escaping (Result<[Recipe], Error>) -> ()) {
+    func getPaginateRecipe(page: Int, completion: @escaping (Result<[Recipe], NetworkError>) -> ()) {
         let recipeListRequest = RecipeListRequest(page: page)
         NetworkManager.shared.executeRequest(apiRequest: recipeListRequest){ result in
             switch result {
             case .success(let response):
-                
                 let decoder = JSONDecoder()
                 decoder.userInfo[.context] = DecoderContext(itemsKey: "recipes")
                 do {
