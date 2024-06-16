@@ -9,7 +9,7 @@ import Foundation
 
 protocol NetworkManagerProtocol {
     func executeRequest(apiRequest: APIRequest,
-                        completion: @escaping (Result<Data, NetworkError>) -> ())
+                        completion: @escaping (Result<Data, NetworkError>) -> Void)
 }
 
 public class NetworkManager: NetworkManagerProtocol{
@@ -18,7 +18,7 @@ public class NetworkManager: NetworkManagerProtocol{
     private let session = URLSession(configuration: .default)
     
     public func executeRequest(apiRequest: APIRequest,
-                               completion: @escaping (Result<Data, NetworkError>) -> ()) {
+                               completion: @escaping (Result<Data, NetworkError>) -> Void) {
         
         var jsonData: Data?
         var urlString: String = apiRequest.url
@@ -51,7 +51,7 @@ public class NetworkManager: NetworkManagerProtocol{
         task.resume()
     }
     
-    private func requestCompletionHandler(_ data: Data?, _ response: URLResponse?, _ error: Error?, completion: @escaping (Result<Data, NetworkError>) -> ()) {
+    private func requestCompletionHandler(_ data: Data?, _ response: URLResponse?, _ error: Error?, completion: @escaping (Result<Data, NetworkError>) -> Void) {
         
         if error != nil {
             completion(.failure(NetworkError.errorFromResponse))

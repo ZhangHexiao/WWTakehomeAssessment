@@ -39,7 +39,6 @@ class RecipeListViewModel {
                 self.delegate?.viewReload()
                 self.isLoading = false
             case .failure(let error):
-                print(error)
                 DispatchQueue.main.async {
                     ErrorAlertController.presentErrorAlert(on: self.delegate as! UIViewController, message: error.errorDescription ?? "Some error happened", retryHandler: {self.fetchData()})
                     self.isLoading = false

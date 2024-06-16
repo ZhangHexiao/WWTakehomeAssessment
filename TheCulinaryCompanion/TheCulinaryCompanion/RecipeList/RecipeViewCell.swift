@@ -10,21 +10,96 @@ import UIKit
 class RecipeViewCell: UITableViewCell {
     
     static let identifier:String = "RecipeViewCell"
-    let cardView = UIView()
-    let foodImageView = UIImageView()
-    let titleLabel = UILabel()
-    let timeLabel = UILabel()
-    let levelLabel = UILabel()
-    let pointLabel = UILabel()
-    let retryButton = UIButton(type: .system)
     
-    let activityIndicator = UIActivityIndicatorView(style: .large)
+    @UsesAutoLayout
+    private(set) var cardView: UIView = {
+        let cardView = UIView()
+        cardView.backgroundColor = .white
+        cardView.layer.cornerRadius = 10
+        cardView.layer.shadowColor = UIColor.black.cgColor
+        cardView.layer.shadowOpacity = 0.1
+        cardView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        cardView.layer.shadowRadius = 4
+        return cardView
+    }()
+    
+    @UsesAutoLayout
+    private(set) var foodImageView: UIImageView = {
+        let foodImageView = UIImageView()
+        foodImageView.contentMode = .scaleAspectFill
+        foodImageView.clipsToBounds = true
+        foodImageView.layer.cornerRadius = 10
+        foodImageView.layer.masksToBounds = true
+        foodImageView.backgroundColor = .clear
+        return foodImageView
+        
+    }()
+    
+    @UsesAutoLayout
+    private(set) var titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.minimumScaleFactor = 0.5
+        titleLabel.numberOfLines = 2
+        return titleLabel
+        
+    }()
+ 
+    @UsesAutoLayout
+    private(set) var timeLabel: UILabel = {
+        let timeLabel = UILabel()
+        timeLabel.font = UIFont.systemFont(ofSize: 12)
+        timeLabel.textColor = .darkGray
+        timeLabel.numberOfLines = 1
+        return timeLabel
+    }()
+    
+    @UsesAutoLayout
+    private(set) var levelLabel: UILabel = {
+        let levelLabel = UILabel()
+        levelLabel.font = UIFont.boldSystemFont(ofSize: 12)
+        levelLabel.textColor = .orange
+        levelLabel.textAlignment = .right
+        levelLabel.numberOfLines = 1
+        levelLabel.adjustsFontSizeToFitWidth = true
+        levelLabel.minimumScaleFactor = 0.5
+        return levelLabel
+    }()
+    
+    @UsesAutoLayout
+    private(set) var pointLabel: UILabel = {
+        let pointLabel = UILabel()
+        pointLabel.font = UIFont.systemFont(ofSize: 12)
+        pointLabel.textColor = .gray
+        pointLabel.numberOfLines = 1
+        return pointLabel
+        
+    }()
+    
+    @UsesAutoLayout
+    private(set) var retryButton: UIButton = {
+        let retryButton = UIButton(type: .system)
+        retryButton.setTitle("Click to reload image", for: .normal)
+        retryButton.layer.borderColor = UIColor.black.cgColor
+        retryButton.isHidden = true
+        retryButton.titleLabel?.font = .systemFont(ofSize: 12)
+        retryButton.titleLabel?.numberOfLines = 2
+        return retryButton
+    }()
+    
+    @UsesAutoLayout
+    private(set) var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.hidesWhenStopped = true
+        return activityIndicator
+    }()
     
     let padding: CGFloat = 16
     let minorPadding: CGFloat = 8
     
     var foodImageUrl = ""
-    var retryDownlaodImage: (() -> Void)?
+    var retryDownlaodImageAction: (() -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,70 +117,17 @@ class RecipeViewCell: UITableViewCell {
     }
     
     @objc private func retryButtonTapped() {
-        retryDownlaodImage?()
+        retryDownlaodImageAction?()
     }
     
     private func setupUI() {
-        cardView.backgroundColor = .white
-        cardView.layer.cornerRadius = 10
-        cardView.layer.shadowColor = UIColor.black.cgColor
-        cardView.layer.shadowOpacity = 0.1
-        cardView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        cardView.layer.shadowRadius = 4
         contentView.addSubview(cardView)
-        
-        foodImageView.contentMode = .scaleAspectFill
-        foodImageView.clipsToBounds = true
-        foodImageView.layer.cornerRadius = 10
-        foodImageView.layer.masksToBounds = true
-        foodImageView.backgroundColor = .clear
-        cardView.addSubview(foodImageView)
-        
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        titleLabel.adjustsFontSizeToFitWidth = true
-        titleLabel.minimumScaleFactor = 0.5
-        titleLabel.numberOfLines = 2
-        cardView.addSubview(titleLabel)
-        
-        levelLabel.font = UIFont.boldSystemFont(ofSize: 12)
-        levelLabel.textColor = .orange
-        levelLabel.textAlignment = .right
-        levelLabel.numberOfLines = 1
-        levelLabel.adjustsFontSizeToFitWidth = true
-        levelLabel.minimumScaleFactor = 0.5
-        cardView.addSubview(levelLabel)
-        
-        timeLabel.font = UIFont.systemFont(ofSize: 12)
-        timeLabel.textColor = .darkGray
-        timeLabel.numberOfLines = 1
-        cardView.addSubview(timeLabel)
-        
-        pointLabel.font = UIFont.systemFont(ofSize: 12)
-        pointLabel.textColor = .gray
-        pointLabel.numberOfLines = 1
-        cardView.addSubview(pointLabel)
-        
-        activityIndicator.hidesWhenStopped = true
-        cardView.addSubview(activityIndicator)
-        
-        retryButton.setTitle("Click to reload image", for: .normal)
-        retryButton.layer.borderColor = UIColor.black.cgColor
-        retryButton.isHidden = true 
-        retryButton.titleLabel?.font = .systemFont(ofSize: 12)
-        retryButton.titleLabel?.numberOfLines = 2
-        cardView.addSubview(retryButton)
+        [foodImageView, titleLabel, levelLabel, timeLabel, pointLabel, activityIndicator, retryButton].forEach {
+            cardView.addSubview($0)
+        }
     }
     
     private func setupLayout() {
-        cardView.translatesAutoresizingMaskIntoConstraints = false
-        foodImageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        levelLabel.translatesAutoresizingMaskIntoConstraints = false
-        pointLabel.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        retryButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
@@ -143,12 +165,11 @@ class RecipeViewCell: UITableViewCell {
             retryButton.heightAnchor.constraint(equalToConstant: 30),
             retryButton.centerXAnchor.constraint(equalTo: foodImageView.centerXAnchor),
             retryButton.centerYAnchor.constraint(equalTo: foodImageView.centerYAnchor)
-  
         ])
     }
     
     func configCell(recipt: Recipe) {
-        foodImageView.image = UIImage(named: "exampleImage")
+        foodImageView.image = UIImage()
         titleLabel.text = recipt.name
         levelLabel.text = recipt.difficultyLevel.rawValue
         timeLabel.text = "Preparation Time: \(recipt.preparationTime) min"
@@ -169,7 +190,7 @@ class RecipeViewCell: UITableViewCell {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
             self.retryButton.isHidden = false
-            self.retryDownlaodImage = retryAction
+            self.retryDownlaodImageAction = retryAction
             self.retryButton.addTarget(self, action: #selector(self.retryButtonTapped), for: .touchUpInside)
         }
         

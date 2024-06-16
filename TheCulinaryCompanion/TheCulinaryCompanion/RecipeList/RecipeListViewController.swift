@@ -10,16 +10,30 @@ import UIKit
 
 class RecipeListViewController:  UIViewController {
     
-    private var tableView: UITableView = {
+    @UsesAutoLayout
+    private(set) var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(RecipeViewCell.self, forCellReuseIdentifier: RecipeViewCell.identifier)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
-    private var spinner: UIActivityIndicatorView = {
+    @UsesAutoLayout
+    private(set) var spinner: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
         return indicator
+    }()
+    
+    @UsesAutoLayout
+    private(set) var noDataLabel: UILabel = {
+        let noDataLabel = UILabel()
+        noDataLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        noDataLabel.text = "All data loaded"
+        noDataLabel.textAlignment = .center
+        noDataLabel.adjustsFontSizeToFitWidth = true
+        noDataLabel.minimumScaleFactor = 0.5
+        noDataLabel.numberOfLines = 1
+        return noDataLabel
+        
     }()
     
     var viewModel: RecipeListViewModel = RecipeListViewModel(recipeService: RecipeService())
@@ -50,10 +64,10 @@ class RecipeListViewController:  UIViewController {
         ])
         tableView.dataSource = self
         tableView.delegate = self
-        spinner.hidesWhenStopped = true
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-        tableView.tableFooterView = viewModel.currentPage >= 5 ? nil: spinner
+        tableView.tableFooterView = viewModel.currentPage >= 5 ? noDataLabel : spinner
+        spinner.hidesWhenStopped = true
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

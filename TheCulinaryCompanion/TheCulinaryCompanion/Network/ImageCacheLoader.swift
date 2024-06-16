@@ -19,7 +19,7 @@ class ImageCacheLoader {
         shared.cache.removeAllObjects()
     }
     
-    static func requestImage(imageUrl: String, completion: @escaping (Result<UIImage, NetworkError>)->()){
+    static func requestImage(imageUrl: String, completion: @escaping (Result<UIImage, NetworkError>)->Void) {
         if let image = shared.cache.object(forKey: imageUrl as NSString) {
             completion(.success(image))
         } else {

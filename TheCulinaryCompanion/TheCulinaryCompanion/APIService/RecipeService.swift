@@ -8,7 +8,7 @@
 import Foundation
 
 protocol RecipeServiceProtocol {
-    func getPaginateRecipe(page: Int, completion: @escaping (Result<[Recipe], NetworkError>) -> ())
+    func getPaginateRecipe(page: Int, completion: @escaping (Result<[Recipe], NetworkError>) -> Void)
 }
 
 class RecipeService: RecipeServiceProtocol{
@@ -18,7 +18,7 @@ class RecipeService: RecipeServiceProtocol{
         self.networkManager = networkManager
     }
     
-    func getPaginateRecipe(page: Int, completion: @escaping (Result<[Recipe], NetworkError>) -> ()) {
+    func getPaginateRecipe(page: Int, completion: @escaping (Result<[Recipe], NetworkError>) -> Void) {
         let recipeListRequest = RecipeListRequest(page: page)
         NetworkManager.shared.executeRequest(apiRequest: recipeListRequest){ result in
             switch result {
